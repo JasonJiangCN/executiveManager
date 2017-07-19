@@ -1,5 +1,13 @@
 <template>
 <div id="login">
+    <el-row>
+    <el-col :span="6">
+    <el-breadcrumb separator="/">
+    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+    <el-breadcrumb-item>登录</el-breadcrumb-item>
+    </el-breadcrumb>
+    </el-col>
+    </el-row>
     <el-row :gutter="20">
     <div id="userName">
         <el-col :span="4">
@@ -31,16 +39,16 @@
     </div>
     </el-row>
     <el-row :gutter="20">
-    <e-col :span="6">
+    <el-col :span="6">
     <img
     :src="imgSrc"
     @click="changeImg"
-   style="width:80px;height:30px;margin-top:5px;margin-right: 10px;margin-left: 3    0px"
+    style="width:80px;height:30px;margin-top:5px;margin-right: 10px;margin-left: 3    0px"
     ></img>
-    </e-col>
-    <e-col :span="8" :offset="6">
-        <el-button>Summit</el-button>
-    </e-col>
+    </el-col>
+    <el-col :span="8" :offset="6">
+    <el-button>Submit</el-button>
+    </el-col>
     </el-row>
 </div>
 </template>
@@ -67,3 +75,4 @@ export default {
 
 
 </script>
+

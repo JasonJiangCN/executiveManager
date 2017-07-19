@@ -1,24 +1,32 @@
 <template>
-<el-row>
-<el-col :span="24">
-</el-col>
-<el-row :gutter="20">
-<el-col :span="6">
-<div id="navBar">
-    <nav-bar></nav-bar>
+<!DOCTYPE html>
+<div id="index">
+    <title>管理工程学院综合信息管理平台</title>
+    <div id="indexContent">
+    <index-header></index-header>
+        <el-row :gutter="20">
+        <el-col :span="6">
+        <div id="navBar">
+            <nav-bar></nav-bar>
+        </div>
+        </el-col>
+        <el-col :span="18">
+        <div id="view">
+            <transition name="el-fade-in">
+            <router-view></router-view>
+            </transition>
+        </div>
+        </el-col>
+        </el-row>
+    </div>
+    <index-footer></index-footer>
 </div>
-</el-col>
-<el-col :span="18">
-<div id="view">
-    <router-view></router-view>
-</div>
-</el-col>
-</el-row>
-</el-row>
 </template>
 
 <script>
 import navBar from './navBar.vue'
+import indexFooter from './indexFooter.vue'
+import indexHeader from './indexHeader.vue'
 export default {
     data: function() {
         return {
@@ -42,6 +50,8 @@ export default {
         })
     },
     components: {
+        indexFooter,
+        indexHeader,
         navBar
     },
     methods: {
@@ -58,6 +68,7 @@ export default {
 
 <style>
 .el-row {
+    margin-right: 0;
     margin-bottom: 20px;
     &:last-child {
         margin-bottom: 0;
@@ -82,5 +93,9 @@ export default {
 .row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
+}
+#indexContent {
+    min-height:100vh;         
+    margin-bottom:-70px; 
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
 <div id="navBar">
-    <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" theme="light" router="true">
+    <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" theme="light" :router=true>
       <el-submenu index="1">
         <template slot="title">导航一</template>
         <el-menu-item-group title="分组一">
