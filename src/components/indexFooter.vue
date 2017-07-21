@@ -1,11 +1,15 @@
 <template>
 <div id="footer" >
+    <!--For Future Use -->
+    <el-row></el-row>
+
 <el-row type="flex"  justify="space-between">
 <el-col :span="9" :offset="2">
 <p style="font">管理学院行政系统</p>
 </el-col>
 <el-col></el-col>
 <el-col :span="10">
+<!-- Copyright info here, with Easter Egg!  -->
 <p 
     @click="notify"
     style="size:16px"
@@ -18,8 +22,10 @@
 </template>
 
 <script>
+//TODO adjust the position of the Copyright info.
 export default {
     methods: {
+        //Easter Egg Here!
         notify: function() {
             this.$notify.info({
                 title: 'BOOM!',

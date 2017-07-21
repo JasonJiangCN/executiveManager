@@ -3,14 +3,20 @@
 <div id="index">
     <title>管理工程学院综合信息管理平台</title>
     <div id="indexContent">
+        <!-- Header Part -->
     <index-header></index-header>
+        <!-- Row for the main index part-->
         <el-row :gutter="20">
+        <!-- Left for the navigation bar -->
         <el-col :span="6">
         <div id="navBar">
             <nav-bar></nav-bar>
         </div>
         </el-col>
+        <!-- Right for the view offerred by the router,
+            with the transition effects-->
         <el-col :span="18">
+        
         <div id="view">
             <transition name="el-fade-in">
             <router-view></router-view>
@@ -19,6 +25,7 @@
         </el-col>
         </el-row>
     </div>
+    <!--Footer Part-->
     <index-footer></index-footer>
 </div>
 </template>
@@ -30,23 +37,26 @@ import indexHeader from './indexHeader.vue'
 export default {
     data: function() {
         return {
+            //data for the navigation bar
             data: [{label: 'first',children:[{
                 label: 'child1', children:[], url: '/index.html'
             }]},{
                 label: 'second', children:[]
-            }],
-            errMsg: 'good',
-            deafultProps: [],
+            }]
         }
     },
     created: function() {
+        //after created, require the menu data for the navigation bar
         var revisedData = []
         this.$http.get('' )
         .then(function(response){
-
+            //the response data should be formatted here
+            //TODO finish the function here.
+            // the revisedData should contain obj like {label: '', children: []}
+            //Original data is formatted like {text:'', children:[]}
             console.log(response)
         }).catch(function (error) {
-            this.errMsg='Error!'
+            //when there is an error
         })
     },
     components: {
@@ -55,11 +65,6 @@ export default {
         navBar
     },
     methods: {
-        handleNodeClick: function(nodeObj, node, nodeCmpnts) {
-            console.log(nodeObj,node,nodeCmpnts)
-        },
-        goAttSum: function() {
-        }
     }
 }
 

@@ -2,6 +2,7 @@
 <div id="login">
     <el-row>
     <el-col :span="6">
+    <!-- breadcrumb bar -->
     <el-breadcrumb separator="/">
     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
     <el-breadcrumb-item>登录</el-breadcrumb-item>
@@ -9,6 +10,7 @@
     </el-col>
     </el-row>
     <el-row :gutter="20">
+    <!-- User name area, containing 2 columns showing label and input area -->
     <div id="userName">
         <el-col :span="4">
         <label>Username</label>
@@ -29,6 +31,7 @@
     </div>
     </el-row>
     <el-row :gutter="20">
+    <!-- Checkcode area here. when click the picture, a new checkcode should be required-->
     <div id="checkCode">
         <el-col :span="4">
         <label>Check Code</label>
@@ -47,6 +50,7 @@
     ></img>
     </el-col>
     <el-col :span="8" :offset="6">
+    <!-- TODO the button should linked to a function when clicked -->
     <el-button>Submit</el-button>
     </el-col>
     </el-row>
@@ -59,13 +63,20 @@ export default {
     data: function() {
 
         return {
+            //userName input
             userName: '',
+            //password input
             passwd: '',
+            //img src info. Should be initialized with blank
             imgSrc: 'https://vuejs.org/images/logo.png',
-                checkCode: ''
+            //checkcode input
+            checkCode: ''
         }
     },
     methods: {
+        //when the pic was clicked,
+        //change the img src
+        //TODO add a $http.get function here to require the picture.
         changeImg: function() {
             this.imgSrc="https://avatars0.githubusercontent.com/u/14368473?v=4&s=460"
         }

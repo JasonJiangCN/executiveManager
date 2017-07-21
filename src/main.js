@@ -9,7 +9,7 @@ import VueRouter from 'vue-router'
 //components
 import index from './components/index.vue'
 import login from './components/login.vue'
-
+import attSumTable from './components/attSumTable.vue'
 
 
 
@@ -20,14 +20,15 @@ Vue.use(ElementUI)
 
 const routes = [
     { path: '/index', component: index },
-    { path: '/login', component: login}
+    { path: '/login', component: login},
+    { path: '/attsummary', component: attSumTable}
 
 ]
 const router = new VueRouter({
     routes
 })
 
-new Vue({
+var vm=new Vue({
   el: '#app',
   render: h => h(App),
   router

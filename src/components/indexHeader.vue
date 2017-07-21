@@ -1,6 +1,7 @@
 <template>
 <div id="header">
     <el-row type="flex" style="margin-bottom:10px">
+    <!-- Row for the logo img-->
     <el-col :span="3">
     <img src="../assets/logo.jpg" id="headerLogo"></img>
     </el-col>
