@@ -175,6 +175,7 @@ export default {
         //Used for the Attendance Summary Table
         //TODO Change the name of this method to meet the standard
         setCurrent(row) {
+            //this.attSumTableSelectedRow=row;
             this.$refs.singleTable.setCurrentRow(row);
         },
         handleAttSumTableSelectedRowChange: function(newRow, oldRow) {

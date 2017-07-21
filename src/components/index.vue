@@ -25,7 +25,9 @@
         </el-col>
         </el-row>
     </div>
-    <!--Footer Part-->
+    <!--Footer Part
+        The push div used to prevent overlaping when the content is full-->
+    <div id="push"></div>
     <index-footer></index-footer>
 </div>
 </template>
@@ -102,5 +104,8 @@ export default {
 #indexContent {
     min-height:100vh;         
     margin-bottom:-70px; 
+}
+#push {
+    height:60px;
 }
 </style>

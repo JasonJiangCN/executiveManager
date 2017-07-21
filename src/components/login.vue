@@ -45,7 +45,7 @@
     <el-col :span="6">
     <img
     :src="imgSrc"
-    @click="changeImg"
+    @click="getImg"
     style="width:80px;height:30px;margin-top:5px;margin-right: 10px;margin-left: 3    0px"
     ></img>
     </el-col>
@@ -77,8 +77,14 @@ export default {
         //when the pic was clicked,
         //change the img src
         //TODO add a $http.get function here to require the picture.
-        changeImg: function() {
-            this.imgSrc="https://avatars0.githubusercontent.com/u/14368473?v=4&s=460"
+        getImg: function() {
+        var imgUrl = '/kaptcha/getKaptchaImage?nowT='+new Date().getTime() 
+        this.$http.get(imgUrl)
+        .then(function(response){
+            this.imgSrc=imgUrl;
+        }).catch(function(error){
+            console.log(error)
+        })        
         }
     }
 }

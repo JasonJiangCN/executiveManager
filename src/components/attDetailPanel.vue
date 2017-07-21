@@ -77,11 +77,31 @@
     
 
     </el-tab-pane>
-    <el-tab-pane label="出勤" name="attended"></el-tab-pane>
-    <el-tab-pane label="公假" name="officialLeave"></el-tab-pane>
-    <el-tab-pane label="旷工" name="absent"></el-tab-pane>
-    <el-tab-pane label="事假" name="personalLeave"></el-tab-pane>
-    <el-tab-pane label="学校缺勤" name="universityLeave"></el-tab-pane>
+    <el-tab-pane label="出勤" name="attended">
+    <general-attendance-table
+       >
+    </general-attendance-table> 
+    </el-tab-pane>
+    <el-tab-pane label="公假" name="officialLeave">
+    <general-attendance-table
+        >
+    </general-attendance-table> 
+    </el-tab-pane>
+    <el-tab-pane label="旷工" name="absent">
+    <general-attendance-table
+       >
+    </general-attendance-table> 
+    </el-tab-pane>
+    <el-tab-pane label="事假" name="personalLeave">
+    <general-attendance-table
+        >
+    </general-attendance-table> 
+    </el-tab-pane>
+    <el-tab-pane label="学校缺勤" name="universityLeave">
+    <general-attendance-table
+        >
+    </general-attendance-table> 
+    </el-tab-pane>
     </el-tabs>
 
 
@@ -100,6 +120,7 @@
 </template>
 
 <script>
+import generalAttendanceTable from './generalAttendanceTable.vue'
 export default {
     data: function() {
         return {
@@ -156,6 +177,9 @@ export default {
             },
             deep: true
         }    
+    },
+    components: {
+        generalAttendanceTable
     }
 
 
