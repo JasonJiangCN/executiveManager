@@ -38,14 +38,6 @@ import indexFooter from './indexFooter.vue'
 import indexHeader from './indexHeader.vue'
 export default {
     data: function() {
-        return {
-            //data for the navigation bar
-            data: [{label: 'first',children:[{
-                label: 'child1', children:[], url: '/index.html'
-            }]},{
-                label: 'second', children:[]
-            }]
-        }
     },
     created: function() {
         //after created, require the menu data for the navigation bar
