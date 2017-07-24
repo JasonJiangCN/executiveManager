@@ -37,7 +37,7 @@ import indexFooter from './indexFooter.vue'
 import indexHeader from './indexHeader.vue'
 export default {
     data: function() {
-        
+        return{} 
     },
     created: function() {
         //after created, require the menu data for the navigation bar
