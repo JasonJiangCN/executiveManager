@@ -12,22 +12,24 @@ import login from './components/login.vue'
 import attSumTable from './components/attSumTable.vue'
 
 
-
+//Components Register
 Vue.prototype.$http = axios
 Vue.use(VueRouter)
 Vue.use(ElementUI)
 
-
+//Routes Configuration
 const routes = [
     { path: '/index', component: index },
     { path: '/login', component: login},
     { path: '/attsummary', component: attSumTable}
 
 ]
+//new Router Instance
 const router = new VueRouter({
     routes
 })
 
+//The Main Vue Instance
 var vm=new Vue({
   el: '#app',
   render: h => h(App),

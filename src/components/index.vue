@@ -1,28 +1,27 @@
 <template>
 <!DOCTYPE html>
 <div id="index">
-    <title>管理工程学院综合信息管理平台</title>
     <div id="indexContent">
         <!-- Header Part -->
-    <index-header></index-header>
+        <index-header></index-header>
         <!-- Row for the main index part-->
         <el-row :gutter="20">
-        <!-- Left for the navigation bar -->
-        <el-col :span="6">
-        <div id="navBar">
-            <nav-bar></nav-bar>
-        </div>
-        </el-col>
-        <!-- Right for the view offerred by the router,
-            with the transition effects-->
-        <el-col :span="18">
-        
-        <div id="view">
-            <transition name="el-fade-in">
-            <router-view></router-view>
-            </transition>
-        </div>
-        </el-col>
+            <!-- Left for the navigation bar -->
+            <el-col :span="6">
+            <div id="navBar">
+                <nav-bar></nav-bar>
+            </div>
+            </el-col>
+             <!-- Right part for the view offerred by the router,
+                 with the transition effects-->
+             <el-col :span="18">
+
+             <div id="view">
+                 <transition name="el-fade-in">
+                 <router-view></router-view>
+                 </transition>
+             </div>
+             </el-col>
         </el-row>
     </div>
     <!--Footer Part
@@ -38,6 +37,7 @@ import indexFooter from './indexFooter.vue'
 import indexHeader from './indexHeader.vue'
 export default {
     data: function() {
+        
     },
     created: function() {
         //after created, require the menu data for the navigation bar

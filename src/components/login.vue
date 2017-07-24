@@ -54,6 +54,7 @@
     <el-button>Submit</el-button>
     </el-col>
     </el-row>
+
 </div>
 </template>
 
@@ -70,7 +71,7 @@ export default {
             //img src info. Should be initialized with blank
             imgSrc: 'https://vuejs.org/images/logo.png',
             //checkcode input
-            checkCode: ''
+            checkCode: '',
         }
     },
     methods: {
@@ -78,13 +79,16 @@ export default {
         //change the img src
         //TODO add a $http.get function here to require the picture.
         getImg: function() {
-        var imgUrl = '/kaptcha/getKaptchaImage?nowT='+new Date().getTime() 
+        var imgUrl = 'http://localhost:8080/glmis/kaptcha/getKaptchaImage?nowT='+new Date().getTime() 
         this.$http.get(imgUrl)
         .then(function(response){
             this.imgSrc=imgUrl;
         }).catch(function(error){
             console.log(error)
         })        
+        },
+        showTime: function() {
+            this.time = new Date()
         }
     }
 }
