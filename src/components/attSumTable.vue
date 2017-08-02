@@ -48,12 +48,12 @@
         element-loading-text="表单加载中">
        
          <el-table-column
-        prop="text"
+        prop="attendanceName"
         label="考勤列表名称"
         >
         </el-table-column>
         <el-table-column
-        prop="attendanceManager"
+        prop="attendanceManager.name"
         label="考勤人"
         >
         </el-table-column>
@@ -101,7 +101,6 @@
         </el-dialog>
         <!-- Search Dialog Finished-->
     </div>
-
 </div>
 </template>
 <script>
@@ -112,8 +111,7 @@ export default {
 
             //Data showed in the Attendance Table
             attListData: [
-                { id: '1',text:'List1', attendanceManager: 'Admin'},
-                { id: '2',text:'List2' ,attendanceManager: 'Admin'}
+               
             ],
             //Loading Controller for the page
             tableLoading: true,
@@ -124,6 +122,8 @@ export default {
             //Row Picked by the Attendance Summary Table
             attSumTableSelectedRow: null,
 
+            //currentPage
+            currentSumTablePage: 1,
 
 
 
@@ -182,32 +182,44 @@ export default {
         handleAttSumTableSelectedRowChange: function(newRow, oldRow) {
             this.attSumTableSelectedRow=newRow;
             console.log(this.attSumTableSelectedRow)
-        },
-        //Used to handle the change of status
-        //including both the icon and color, will be called in the watch property
-        handleAttStatusChange(newStatus, oldStatus) {
-            if (newStatus == '出勤') {        
-                this.statusIconStyle='color:#13CE66'
-                this.statusIcon='el-icon-check'
-            }
         }
     },
-    watch: {
+       
+        watch: {
 
     },
         mounted: function() {
-        //Used for showing the loading effect
+                let url = "http://localhost:8080/glmis/displayAllAttendanceSummary?page=1&rows=10"
+            var app = this
+            this.$http.get(url)
+                .then(function(response){
+                    app.attListData = response.data.rows
+                    
+                })
+                .catch(function(error){
+                    console.log(error)
+                })
+        
+ //Used for showing the loading effect
         //auto disappeared after 1 seconds
         //TODO let it disappeared after the table was loaded successfully IF POSSIBLE
         this.tableLoading = true;
         setTimeout(() => {
             this.tableLoading = false;
-        }, 1000);
+        }, 1);
+
+
+
+
+
+
     },
     components: {
         //register the new panel componenet
         attDetailPanel   
     }
+  
+    
 }
 </script>
 

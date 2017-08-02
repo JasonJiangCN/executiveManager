@@ -55,7 +55,7 @@
     @click="submitForm">Submit</el-button>
     </el-col>
     </el-row>
-
+    <p>{{ test}}</p>
 </div>
 </template>
 
@@ -70,9 +70,10 @@ export default {
             //password input
             passwd: '',
             //img src info. Should be initialized with blank
-            imgSrc: '/api/glmis/kaptcha/getKaptchaImage',
+            //imgSrc: '/api/glmis/kaptcha/getKaptchaImage',
             //checkcode input
-            checkCode: ''
+            checkCode: '',
+            test: 'wait'
         }
     },
     methods: {
@@ -80,7 +81,14 @@ export default {
         //change the img src
         //TODO add a $http.get function here to require the picture.
         getImg: function() {
-            this.imgSrc = '/api/glmis/kaptcha/getKaptchaImage?nowT='+new Date().getTime()
+            //this.imgSrc = '/api/glmis/kaptcha/getKaptchaImage?nowT='+new Date().getTime()
+            var app = this;
+        this.$http.get("http://localhost:8080/glmis/menu")
+                .then(function (response) {
+        })
+                .catch(function (error) {
+                })
+
         },
         submitForm: function() {
             var submitObj = {
@@ -88,7 +96,16 @@ export default {
                 password: this.passwd,
                 verificationCode: this.checkCode
             };
-            this.$http.post('http://localhost:8080/glmis/login',submitObj)
+            var url = 'http://localhost:8080/login';
+                this.$http({
+                method: 'post',
+                url: url,
+                data: submitObj,
+                headers: {
+                    "Access-Control-Request-Method": "POST",
+                    "Access-Control-Request-Headers": "X-Custom-Header"
+                }
+            })
             .then(function (response) {
                 console.log(response);
             })

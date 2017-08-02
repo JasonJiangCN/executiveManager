@@ -21,14 +21,15 @@
     :data="candidateTableData"
     highlight-current-row
     @current-change="handleCandidateSelectedRowChange"
+    @roll-click=""
     style="width: 401px">
     <el-table-column
-    property="id"
+    property="employee.id"
     label="ID"
     width="100">
     </el-table-column>
     <el-table-column
-    property="name"
+    property="employee.name"
     label="姓名"
     width="300">
     </el-table-column>
@@ -74,32 +75,32 @@
 
 
     </el-row>
-    
+
 
     </el-tab-pane>
     <el-tab-pane label="出勤" name="attended">
     <general-attendance-table
-       >
+    >
     </general-attendance-table> 
     </el-tab-pane>
     <el-tab-pane label="公假" name="officialLeave">
     <general-attendance-table
-        >
+    >
     </general-attendance-table> 
     </el-tab-pane>
     <el-tab-pane label="旷工" name="absent">
     <general-attendance-table
-       >
+    >
     </general-attendance-table> 
     </el-tab-pane>
     <el-tab-pane label="事假" name="personalLeave">
     <general-attendance-table
-        >
+    >
     </general-attendance-table> 
     </el-tab-pane>
     <el-tab-pane label="学校缺勤" name="universityLeave">
     <general-attendance-table
-        >
+    >
     </general-attendance-table> 
     </el-tab-pane>
     </el-tabs>
@@ -112,8 +113,8 @@
     <!-- For future use & bottom margin -->
     <el-row></el-row>
     <!-- Attendance Sheet Finished-->
-
-
+    <p>{{candidateSelectedRow + "1"}}</p>
+    <!--  <p>{{ candidateTableData}}</p> -->
 
 
 </div>
@@ -135,6 +136,7 @@ export default {
             statusIcon: 'el-icon-menu',
             statusIconStyle: 'color:#8492a6',
 
+            currentSelectedPage: 1
 
         }
     },
@@ -153,10 +155,35 @@ export default {
             }
         },
         handleCandidateSelectedRowChange: function(newRow, oldRow) {
-            this.candidateSelectedRow = newRow;
+            alert(newRow)
+            this.candidateSelectedRow = newRow.employee;
 
-            //For test only
-            this.attendanceStatus = '出勤'
+            var url = "http://localhost:8080/glmis/displayAttByCan?candidateId="
+                + this.candidateSelectedRow
+            + "&;summaryId="
+            + this.selectedAttListId;
+            var app = this;
+            app.$http.get(url)
+            .then(function(response){
+                app.attendanceStatus = response.data.rows.presenceDescription.description
+            })
+        },
+        setCurrent(row) {
+            //this.attSumTableSelectedRow=row;
+            this.$refs.singleTable.setCurrentRow(row);
+        },
+
+        handleSelectedAttListChange: function(){
+            var app = this
+            let url = "http://localhost:8080/glmis/displayAttendanceBySummary?id="
+                + this.selectedAttListId
+            + "&page=" 
+            + this.currentSelectedPage
+            + "&rows=10";
+            this.$http.get(url)
+            .then(function(response) {
+                app.candidateTableData = response.data.rows
+            })
         }
     },
     watch: {
@@ -167,16 +194,9 @@ export default {
             deep: true
         },
         selectedAttListId: {
-            handler: function(newId, oldId){
-                if (newId == 1)
-                    this.candidateTableData=  [
-                            {id: '1', name: 'Admin'},
-                            {id:'2', name: 'Jason'},
-                            {id: '3', name: 'Unknown'}
-                        ];
-            },
+            handler: 'handleSelectedAttListChange',
             deep: true
-        }    
+        }
     },
     components: {
         generalAttendanceTable
