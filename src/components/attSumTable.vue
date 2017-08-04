@@ -42,12 +42,12 @@
         ref="singleTable"
         :data="attListData"
         highlight-current-row
-        @current-change="handleAttSumTableSelectedRowChange"
+        @current-change="handleAttSumTableSelectedRowChange" 
         style="width: 100%"
         v-loading.fullscreen.lock="tableLoading"
         element-loading-text="表单加载中">
-       
-         <el-table-column
+
+        <el-table-column
         prop="attendanceName"
         label="考勤列表名称"
         >
@@ -96,7 +96,7 @@
         </el-row>
         <el-row>
         <el-button @click="attDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="attDialogVisible = false">查 询</el-button>
+        <el-button type="primary" @click="handleAttListSearch">查 询</el-button>
         </el-row>
         </el-dialog>
         <!-- Search Dialog Finished-->
@@ -111,7 +111,7 @@ export default {
 
             //Data showed in the Attendance Table
             attListData: [
-               
+
             ],
             //Loading Controller for the page
             tableLoading: true,
@@ -182,25 +182,28 @@ export default {
         handleAttSumTableSelectedRowChange: function(newRow, oldRow) {
             this.attSumTableSelectedRow=newRow;
             console.log(this.attSumTableSelectedRow)
+        },
+        handleAttListSearch: function(){
+            
         }
     },
-       
-        watch: {
+
+    watch: {
 
     },
-        mounted: function() {
-                let url = "http://localhost:8080/glmis/displayAllAttendanceSummary?page=1&rows=10"
+    mounted: function() {
+        let url = "http://localhost:8080/glmis/displayAllAttendanceSummary?page=1&rows=10"
             var app = this
-            this.$http.get(url)
-                .then(function(response){
-                    app.attListData = response.data.rows
-                    
-                })
-                .catch(function(error){
-                    console.log(error)
-                })
-        
- //Used for showing the loading effect
+        this.$http.get(url)
+        .then(function(response){
+            app.attListData = response.data.rows
+
+        })
+        .catch(function(error){
+            console.log(error)
+        })
+
+        //Used for showing the loading effect
         //auto disappeared after 1 seconds
         //TODO let it disappeared after the table was loaded successfully IF POSSIBLE
         this.tableLoading = true;
@@ -218,8 +221,8 @@ export default {
         //register the new panel componenet
         attDetailPanel   
     }
-  
-    
+
+
 }
 </script>
 
