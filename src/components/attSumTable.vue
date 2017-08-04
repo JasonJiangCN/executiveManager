@@ -184,7 +184,20 @@ export default {
             console.log(this.attSumTableSelectedRow)
         },
         handleAttListSearch: function(){
-            
+            var app = this
+            let startTime = app.dateValue[0].toJSON()
+            let endTime = app.dateValue[1].toJSON()
+            let url = "http://localhost:8080/glmis/findSummary?startTime=" 
+                + startTime
+                + "&;endTime=" 
+                + endTime 
+                + "&page=1&rows=10"
+            app.$http.get(url)
+                .then(function(response){
+                    app.attListData = response.data.rows
+                }).catch(function(error){
+                    console.log(error)
+                })
         }
     },
 
