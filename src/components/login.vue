@@ -55,7 +55,6 @@
     @click="submitForm">Submit</el-button>
     </el-col>
     </el-row>
-    <p>{{ test}}</p>
 </div>
 </template>
 
@@ -72,8 +71,7 @@ export default {
             //img src info. Should be initialized with blank
             //imgSrc: '/api/glmis/kaptcha/getKaptchaImage',
             //checkcode input
-            checkCode: '',
-            test: 'wait'
+            checkCode: ''
         }
     },
     methods: {

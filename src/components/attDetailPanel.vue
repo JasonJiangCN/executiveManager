@@ -79,27 +79,27 @@
         </el-tab-pane>
         <el-tab-pane label="出勤" name="attended">
         <general-attendance-table
-        >
+        :tableType="attended">
         </general-attendance-table> 
         </el-tab-pane>
         <el-tab-pane label="公假" name="officialLeave">
         <general-attendance-table
-        >
+        :tableType="officialLeave">
         </general-attendance-table> 
         </el-tab-pane>
         <el-tab-pane label="旷工" name="absent">
         <general-attendance-table
-        >
+        :tableType="absent">
         </general-attendance-table> 
         </el-tab-pane>
         <el-tab-pane label="事假" name="personalLeave">
         <general-attendance-table
-        >
+        :tableType="personalLeave">
         </general-attendance-table> 
         </el-tab-pane>
         <el-tab-pane label="学校缺勤" name="universityLeave">
         <general-attendance-table
-        >
+        :tableType="universityLeave">
         </general-attendance-table> 
         </el-tab-pane>
         </el-tabs>
@@ -112,7 +112,6 @@
         <!-- For future use & bottom margin -->
         <el-row></el-row>
         <!-- Attendance Sheet Finished-->
-         <p>{{originalCandidateTableData }}</p>
 
 
     </div>

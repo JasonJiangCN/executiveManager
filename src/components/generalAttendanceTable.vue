@@ -47,7 +47,7 @@
 <script>
 export default {
     //Used for getting the content from server
-    props:['tableUrl'],
+    props:['tableType'],
     data: function() {
         return {
             tableData: []
@@ -65,8 +65,13 @@ export default {
             })
 
         }
+    },
+    watch: {
+        tableType: {
+            deep: true,
+            handler: 'getTableData'
+        }
     }
-
 }
 
 </script>

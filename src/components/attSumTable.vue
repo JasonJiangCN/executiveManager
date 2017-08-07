@@ -24,9 +24,9 @@
         </el-col>
         <el-col :span="5" :offset="1">
         <el-button-group>
-        <el-button type="primary" icon="plus"></el-button>
-        <el-button type="primary" icon="edit"></el-button>
-        <el-button type="primary" icon="delete"></el-button>
+        <el-button type="primary" icon="plus" @click="addDialogVisible=true"></el-button>
+        <el-button type="primary" icon="edit" @click="editDialogVisible=true"></el-button>
+        <el-button type="primary" icon="delete" @click="delDialogVisible=true"></el-button>
         </el-button-group>
         </el-col>
         <el-button @click="setCurrent()">取消选择</el-button>
@@ -100,6 +100,70 @@
         </el-row>
         </el-dialog>
         <!-- Search Dialog Finished-->
+
+        <!-- Add Dialog -->
+        <el-dialog title="添加" :visible.sync="addDialogVisible">
+        <el-form :model="addForm">
+        <el-form-item label="考勤名称">
+        <el-input v-model="addForm.name" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="日期" :label-width="formLabelWidth">
+        <el-date-picker
+        v-model="addForm.date"
+        type="date"
+        placeholder="选择日期"
+        :picker-options="pickerOptions0">
+        </el-date-picker>
+        </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="addForm={date:'',name:''}">清 空</el-button>
+            <el-button @click="addDialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="submitAddForm(true)">确 定</el-button>
+        </div>
+        </el-dialog>
+        <!-- Add Dialog Finished-->
+
+        <!-- Edit Dialog-->
+         <el-dialog title="修改" :visible.sync="editDialogVisible">
+        <el-form :model="addForm">
+        <el-form-item label="考勤名称">
+        <el-input v-model="addForm.name" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="日期" :label-width="formLabelWidth">
+        <el-date-picker
+        v-model="addForm.date"
+        type="date"
+        placeholder="选择日期"
+        :picker-options="pickerOptions0">
+        </el-date-picker>
+        </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="addForm={date:'',name:''}">清 空</el-button>
+            <el-button @click="editDialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="submitAddForm(false)">确 定</el-button>
+        </div>
+        </el-dialog>
+
+
+        <!-- Edit Dialog Finished -->
+        <!-- Delete Dialog-->
+         <el-dialog title="删除" :visible.sync="delDialogVisible">
+            <el-row>
+            <label v-if="attSumTableSelectedRow">确认删除这条考勤记录吗？</label>
+            <label v-else>请先选择一条考勤记录！</label>
+            </el-row>
+            <el-row>
+            <label v-if="attSumTableSelectedRow">{{"考勤名称:"+attSumTableSelectedRow.attendanceName + "\n考勤管理员:"+ attSumTableSelectedRow.attendanceManager.name}}</label>
+            </el-row>
+         <div slot="footer" class="dialog-footer">
+            <el-button @click="delDialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="deleteAttForm" v-if="attSumTableSelectedRow">确 定</el-button>
+        </div>
+        </el-dialog>
+
+        <!-- Delete Dialog Finished -->
     </div>
 </div>
 </template>
@@ -125,6 +189,19 @@ export default {
             //currentPage
             currentSumTablePage: 1,
 
+            //controller for add dialog
+            addDialogVisible: false,
+
+            //add form
+            addForm: {
+                date: '',
+                name: ''
+            },
+            //controller for edit dialog
+            editDialogVisible: false,
+
+            //controller for delete dialog
+            delDialogVisible: false,
 
 
             //dateData Picker Options
@@ -189,51 +266,68 @@ export default {
             let endTime = app.dateValue[1].toJSON()
             let url = "http://localhost:8080/glmis/findSummary?startTime=" 
                 + startTime
-                + "&;endTime=" 
-                + endTime 
-                + "&page=1&rows=10"
+            + "&;endTime=" 
+            + endTime 
+            + "&page=1&rows=10"
             app.$http.get(url)
-                .then(function(response){
-                    app.attListData = response.data.rows
-                }).catch(function(error){
-                    console.log(error)
-                })
+            .then(function(response){
+                app.attListData = response.data.rows
+                app.attDialogVisible = false;
+            }).catch(function(error){
+                alert("ERROR!" + error)
+            })
+
+        },
+        submitAddForm: function(isAdd){
+            if (isAdd){
+            var url = "http://localhost:8080/glmis/addAttendanceSummary";
+                var app = this
+            app.$http.post(url,app.addForm)
+            .then(function(response){
+                console.log(response)
+                app.addDialogVisible = false
+            }).catch(function(error){
+                alert("ERROR!" + error)
+            })
+        } else {
+
         }
-    },
-
-    watch: {
-
-    },
-    mounted: function() {
-        let url = "http://localhost:8080/glmis/displayAllAttendanceSummary?page=1&rows=10"
-            var app = this
-        this.$http.get(url)
-        .then(function(response){
-            app.attListData = response.data.rows
-
-        })
-        .catch(function(error){
-            console.log(error)
-        })
-
-        //Used for showing the loading effect
-        //auto disappeared after 1 seconds
-        //TODO let it disappeared after the table was loaded successfully IF POSSIBLE
-        this.tableLoading = true;
-        setTimeout(() => {
-            this.tableLoading = false;
-        }, 1);
-
-
-
-
-
-
-    },
-    components: {
-        //register the new panel componenet
-        attDetailPanel   
     }
+},
+
+watch: {
+
+},
+mounted: function() {
+    let url = "http://localhost:8080/glmis/displayAllAttendanceSummary?page=1&rows=10"
+        var app = this
+    this.$http.get(url)
+    .then(function(response){
+        app.attListData = response.data.rows
+
+    })
+    .catch(function(error){
+        console.log(error)
+    })
+
+    //Used for showing the loading effect
+    //auto disappeared after 1 seconds
+    //TODO let it disappeared after the table was loaded successfully IF POSSIBLE
+    this.tableLoading = true;
+    setTimeout(() => {
+        this.tableLoading = false;
+    }, 1);
+
+
+
+
+
+
+},
+components: {
+    //register the new panel componenet
+    attDetailPanel   
+}
 
 
 }
